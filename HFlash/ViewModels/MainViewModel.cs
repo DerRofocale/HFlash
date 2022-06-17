@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace HFlash.ViewModels
 {
@@ -20,34 +22,105 @@ namespace HFlash.ViewModels
 
 
 
-        #region Ink
-        private bool _Ink;
-        public bool Ink
+
+        #region FlatNumber
+        private string _FlatNumber;
+        public string FlatNumber
         {
-            get => _Ink;
+            get => _FlatNumber ?? "0";
             set
             {
-                _Ink = value;
+                _FlatNumber = value;
                 OnPropertyChanged();
             }
         }
         #endregion
 
-        #region Command GetUpdates
-        private RelayCommand _getUpdates;
-        public RelayCommand GetUpdates
+        #region IPAddress
+        private string _IPAddress;
+        public string IPAddress
         {
-            get
+            get => _IPAddress ?? "178.78.60.195";
+            set
             {
-                return _getUpdates ??
-                (_getUpdates = new RelayCommand(obj =>
-                {
-                    Task.Factory.StartNew(() =>
-                    { });
-                }));
+                _IPAddress = value;
+                OnPropertyChanged();
             }
         }
         #endregion
+
+        #region NumberColor
+        private int _NumberColor;
+        public int NumberColor
+        {
+            get => _NumberColor;
+            set
+            {
+                _NumberColor = value;
+                switch (value)
+                {
+                    case 0:
+                        BackgroundColor = new SolidColorBrush(Colors.Black);
+                        break;
+                    case 1:
+                        BackgroundColor = new SolidColorBrush(Colors.White);
+                        break;
+                }
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region BackgroundColor
+        private SolidColorBrush _BackgroundColor;
+        public SolidColorBrush BackgroundColor
+        {
+            get => _BackgroundColor;
+            set
+            {
+                _BackgroundColor = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        //#region Command TryToConnect
+        //private RelayCommand _TryToConnect;
+        //public RelayCommand TryToConnect
+        //{
+        //    get
+        //    {
+        //        return _TryToConnect ??
+        //        (_TryToConnect = new RelayCommand(obj =>
+        //        {
+        //            Task.Factory.StartNew(() =>
+        //            {
+        //                while (true)
+        //                {
+        //                    IsEnableElements = false;
+        //                    try
+        //                    {
+        //                        string result = new HttpClient().GetAsync("http://" + IPAddress + ":5000/api/Flats/" + FlatNumber).Result.Content.ReadAsStringAsync().Result;
+        //                        if (result.Equals("true"))
+        //                        {
+        //                            BackgroundColor = new SolidColorBrush(Colors.White);
+        //                        }
+        //                        else if (result.Equals("false"))
+        //                        {
+        //                            BackgroundColor = new SolidColorBrush(Colors.Black);
+        //                        }
+        //                    }
+        //                    catch (WebException ex)
+        //                    {
+        //                        break;
+        //                    }
+        //                    Task.Delay(1000).Wait();
+        //                }
+        //            });
+        //        }));
+        //    }
+        //}
+        //#endregion
 
         public MainViewModel()
         {
@@ -55,38 +128,31 @@ namespace HFlash.ViewModels
             {
                 while (true)
                 {
-                    
+                    try
+                    {
+                        using (HttpClient http = new HttpClient())
+                        {
+                            string result = http.GetAsync("http://" + IPAddress + ":5000/api/Flats/" + FlatNumber).Result.Content.ReadAsStringAsync().Result;
+                            if (result.Equals("true"))
+                            {
+                                //BackgroundColor = new SolidColorBrush(Colors.White);
+                                //SolidColorBrush br = new SolidColorBrush(Colors.Black);
+                                NumberColor = 1;
+                            }
+                            else if (result.Equals("false"))
+                            {
+                                NumberColor = 0;
+
+                                //BackgroundColor = new SolidColorBrush(Colors.Black);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //break;
+                    }
+                    Task.Delay(1000).Wait();
                 }
-            });
-
-            Task.Factory.StartNew(() =>
-            {
-
-                //while (true)
-                //{
-                //    try
-                //    {
-                //        using (HttpClient http = new HttpClient())
-                //        {
-                //            var a = http.GetAsync("https://pastebin.com/raw/192bCJ4t").Result.Content.ReadAsStringAsync().Result;
-                //            if (a == Properties.Settings.Default.LastUpdate)
-                //            {
-                //                LatestVersion = "Установлена последняя версия - " + a; // 
-                //                IsLastVersion = Visibility.Visible; // 
-                //            }
-                //            else
-                //            {
-                //                LatestVersion = "Устаревшая версия: " + Properties.Settings.Default.LastUpdate + "\nНовая версия: " + a; // 
-                //                IsLastVersion = Visibility.Collapsed; // 
-                //            }
-                //        }
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        MessageBox.Show(ex.Message);
-                //    }
-                //    Task.Delay(1000).Wait();
-                //}
             });
         }
     }

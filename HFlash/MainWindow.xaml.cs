@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,16 +26,22 @@ namespace HFlash
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (!String.IsNullOrEmpty(aaa.FirstSegment.Text) &&
-                !String.IsNullOrEmpty(aaa.SecondSegment.Text) &&
-                !String.IsNullOrEmpty(aaa.ThirdSegment.Text) &&
-                !String.IsNullOrEmpty(aaa.LastSegment.Text))
-            {
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!String.IsNullOrEmpty(aaa.FirstSegment.Text) &&
+        //        !String.IsNullOrEmpty(aaa.SecondSegment.Text) &&
+        //        !String.IsNullOrEmpty(aaa.ThirdSegment.Text) &&
+        //        !String.IsNullOrEmpty(aaa.LastSegment.Text))
+        //    {
 
-                MessageBox.Show(aaa.Address);
-            }
+        //        MessageBox.Show(aaa.Address);
+        //    }
+        //}
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

@@ -3,11 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HFlash" xmlns:ux="clr-namespace:HFlash.UserControls"
+        xmlns:local="clr-namespace:HFlash" xmlns:ux="clr-namespace:HFlash.UserControls" xmlns:viewmodels="clr-namespace:HFlash.ViewModels"
         mc:Ignorable="d"
-        Title="HFlash" MinHeight="450" MinWidth="800">
-    <Grid >
-        <Button Click="Button_Click"/>
-        <ux:IPTextBox x:Name="aaa" Width="150" Height="30" BorderBrush="Black" BorderThickness="1"/>
+        Title="HFlash" MinHeight="450" MinWidth="800" Background="{Binding BackgroundColor, UpdateSourceTrigger=PropertyChanged}">
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ux:IPTextBox Address="{Binding IPAddress, UpdateSourceTrigger=PropertyChanged}" Width="150">
+                <ux:IPTextBox.ToolTip>
+                    <TextBlock>
+                        <Bold>IP-адрес</Bold>
+                        <LineBreak/>
+                        Свяжитесь с организатором флешмоба, чтобы узнать IP-адрес хоста
+                    </TextBlock>
+                </ux:IPTextBox.ToolTip>
+            </ux:IPTextBox>
+            <TextBox Text="{Binding FlatNumber, UpdateSourceTrigger=PropertyChanged}" Width="150" MaxLines="1" MaxLength="10" PreviewTextInput="NumberValidationTextBox">
+                <TextBox.ToolTip>
+                    <TextBlock>
+                        <Bold>Идентификатор помещения</Bold>
+                        <LineBreak/>
+                        Свяжитесь с организатором флешмоба, чтобы узнать Ваш идентификатор
+                    </TextBlock>
+                </TextBox.ToolTip>
+            </TextBox>
+        </StackPanel>
     </Grid>
 </Window>
