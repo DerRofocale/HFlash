@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HFlash" xmlns:ux="clr-namespace:HFlash.UserControls" xmlns:viewmodels="clr-namespace:HFlash.ViewModels"
         mc:Ignorable="d"
-        Title="HFlash" MinHeight="450" MinWidth="800" Background="{Binding BackgroundColor, UpdateSourceTrigger=PropertyChanged}">
+        Title="HFlash" MinHeight="450" MinWidth="800" >
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
     <Grid>
+        <Grid Background="Black" Visibility="{Binding VisibilityBlack}"/>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <ux:IPTextBox Address="{Binding IPAddress, UpdateSourceTrigger=PropertyChanged}" Width="150">
+            <ux:IPTextBox Opacity="0.5" Address="{Binding IPAddress, UpdateSourceTrigger=PropertyChanged}" Width="150">
                 <ux:IPTextBox.ToolTip>
                     <TextBlock>
                         <Bold>IP-адрес</Bold>
@@ -20,7 +21,7 @@
                     </TextBlock>
                 </ux:IPTextBox.ToolTip>
             </ux:IPTextBox>
-            <TextBox Text="{Binding FlatNumber, UpdateSourceTrigger=PropertyChanged}" Width="150" MaxLines="1" MaxLength="10" PreviewTextInput="NumberValidationTextBox">
+            <TextBox Opacity="0.5" Text="{Binding FlatNumber, UpdateSourceTrigger=PropertyChanged}" Width="150" MaxLines="1" MaxLength="10" PreviewTextInput="NumberValidationTextBox">
                 <TextBox.ToolTip>
                     <TextBlock>
                         <Bold>Идентификатор помещения</Bold>

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -49,40 +50,41 @@ namespace HFlash.ViewModels
         }
         #endregion
 
-        #region NumberColor
-        private int _NumberColor;
-        public int NumberColor
-        {
-            get => _NumberColor;
-            set
-            {
-                _NumberColor = value;
-                switch (value)
-                {
-                    case 0:
-                        BackgroundColor = new SolidColorBrush(Colors.Black);
-                        break;
-                    case 1:
-                        BackgroundColor = new SolidColorBrush(Colors.White);
-                        break;
-                }
-                OnPropertyChanged();
-            }
-        }
-        #endregion
+        #region HIDE
+        //#region NumberColor
+        //private int _NumberColor;
+        //public int NumberColor
+        //{
+        //    get => _NumberColor;
+        //    set
+        //    {
+        //        _NumberColor = value;
+        //        switch (value)
+        //        {
+        //            case 0:
+        //                BackgroundColor = new SolidColorBrush(Colors.Black);
+        //                break;
+        //            case 1:
+        //                BackgroundColor = new SolidColorBrush(Colors.White);
+        //                break;
+        //        }
+        //        OnPropertyChanged();
+        //    }
+        //}
+        //#endregion
 
-        #region BackgroundColor
-        private SolidColorBrush _BackgroundColor;
-        public SolidColorBrush BackgroundColor
-        {
-            get => _BackgroundColor;
-            set
-            {
-                _BackgroundColor = value;
-                OnPropertyChanged();
-            }
-        }
-        #endregion
+        //#region BackgroundColor
+        //private SolidColorBrush _BackgroundColor;
+        //public SolidColorBrush BackgroundColor
+        //{
+        //    get => _BackgroundColor;
+        //    set
+        //    {
+        //        _BackgroundColor = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+        //#endregion
 
         //#region Command TryToConnect
         //private RelayCommand _TryToConnect;
@@ -121,37 +123,49 @@ namespace HFlash.ViewModels
         //    }
         //}
         //#endregion
+        #endregion
+
+
+        #region VisibilityBlack
+        private Visibility _VisibilityBlack;
+        public Visibility VisibilityBlack
+        {
+            get => _VisibilityBlack;
+            set
+            {
+                _VisibilityBlack = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
 
         public MainViewModel()
         {
             Task.Factory.StartNew(() =>
             {
+
                 while (true)
                 {
                     try
                     {
                         using (HttpClient http = new HttpClient())
                         {
-                            string result = http.GetAsync("http://" + IPAddress + ":5000/api/Flats/" + FlatNumber).Result.Content.ReadAsStringAsync().Result;
-                            if (result.Equals("true"))
+                            var a = http.GetAsync("http://" + IPAddress + ":5000/api/Flats/" + FlatNumber).Result.Content.ReadAsStringAsync().Result;
+                            if (a == "true")
                             {
-                                //BackgroundColor = new SolidColorBrush(Colors.White);
-                                //SolidColorBrush br = new SolidColorBrush(Colors.Black);
-                                NumberColor = 1;
+                                VisibilityBlack = Visibility.Collapsed;
                             }
-                            else if (result.Equals("false"))
+                            else if (a == "false")
                             {
-                                NumberColor = 0;
+                                VisibilityBlack = Visibility.Visible;
+                            }
 
-                                //BackgroundColor = new SolidColorBrush(Colors.Black);
-                            }
                         }
                     }
                     catch (Exception ex)
-                    {
-                        //break;
-                    }
-                    Task.Delay(1000).Wait();
+                    { }
+                    Task.Delay(500).Wait();
                 }
             });
         }
