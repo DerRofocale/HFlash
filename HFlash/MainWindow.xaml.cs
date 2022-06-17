@@ -24,5 +24,17 @@ namespace HFlash
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(aaa.FirstSegment.Text) &&
+                !String.IsNullOrEmpty(aaa.SecondSegment.Text) &&
+                !String.IsNullOrEmpty(aaa.ThirdSegment.Text) &&
+                !String.IsNullOrEmpty(aaa.LastSegment.Text))
+            {
+
+                MessageBox.Show(aaa.Address);
+            }
+        }
     }
 }

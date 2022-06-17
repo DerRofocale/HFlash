@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace HFlash.ViewModels
 {
@@ -61,31 +62,31 @@ namespace HFlash.ViewModels
             Task.Factory.StartNew(() =>
             {
 
-                while (true)
-                {
-                    try
-                    {
-                        using (HttpClient http = new HttpClient())
-                        {
-                            var a = http.GetAsync("https://pastebin.com/raw/192bCJ4t").Result.Content.ReadAsStringAsync().Result;
-                            if (a == Properties.Settings.Default.LastUpdate)
-                            {
-                                LatestVersion = "Установлена последняя версия - " + a; // 
-                                IsLastVersion = Visibility.Visible; // 
-                            }
-                            else
-                            {
-                                LatestVersion = "Устаревшая версия: " + Properties.Settings.Default.LastUpdate + "\nНовая версия: " + a; // 
-                                IsLastVersion = Visibility.Collapsed; // 
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    Task.Delay(1000).Wait();
-                }
+                //while (true)
+                //{
+                //    try
+                //    {
+                //        using (HttpClient http = new HttpClient())
+                //        {
+                //            var a = http.GetAsync("https://pastebin.com/raw/192bCJ4t").Result.Content.ReadAsStringAsync().Result;
+                //            if (a == Properties.Settings.Default.LastUpdate)
+                //            {
+                //                LatestVersion = "Установлена последняя версия - " + a; // 
+                //                IsLastVersion = Visibility.Visible; // 
+                //            }
+                //            else
+                //            {
+                //                LatestVersion = "Устаревшая версия: " + Properties.Settings.Default.LastUpdate + "\nНовая версия: " + a; // 
+                //                IsLastVersion = Visibility.Collapsed; // 
+                //            }
+                //        }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        MessageBox.Show(ex.Message);
+                //    }
+                //    Task.Delay(1000).Wait();
+                //}
             });
         }
     }
