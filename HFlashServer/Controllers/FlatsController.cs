@@ -10,6 +10,10 @@ namespace HFlashServer.Controllers
     public class FlatsController : ControllerBase
     {
         // GET: api/<FlatsController>
+        /// <summary>
+        /// Получение статусов всех помещений
+        /// </summary>
+        /// <returns>Абобка</returns>
         [HttpGet]
         public List<Root> Get()
         {
@@ -17,6 +21,11 @@ namespace HFlashServer.Controllers
         }
 
         // GET api/<FlatsController>/5
+        /// <summary>
+        /// Получение статуса по номеру помещения
+        /// </summary>
+        /// <param name="id">Номер помещения</param>
+        /// <returns>Абибка</returns>
         [HttpGet("{id}")]
         public bool Get(int id)
         {
@@ -24,6 +33,11 @@ namespace HFlashServer.Controllers
         }
 
         // POST api/<FlatsController>
+        /// <summary>
+        /// Установка статусов для всех помещений
+        /// </summary>
+        /// <param name="value">Лист с указанем помещения и статуса</param>
+        /// <returns>Абебка</returns>
         [HttpPost]
         public List<Root> Post([FromBody] List<Root> value)
         {
