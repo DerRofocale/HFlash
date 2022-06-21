@@ -13,7 +13,7 @@ namespace HFlashServer.Controllers
         /// <summary>
         /// Получение статусов всех помещений
         /// </summary>
-        /// <returns>Абобка</returns>
+        /// <returns>Возвращает список номеров помещений <b>(int)</b> и их статусы <b>(bool)</b></returns>
         [HttpGet]
         public List<Root> Get()
         {
@@ -25,7 +25,7 @@ namespace HFlashServer.Controllers
         /// Получение статуса по номеру помещения
         /// </summary>
         /// <param name="id">Номер помещения</param>
-        /// <returns>Абибка</returns>
+        /// <returns>Возвращает статус <b>(bool)</b> помещения по указанному номеру помещения</returns>
         [HttpGet("{id}")]
         public bool Get(int id)
         {
@@ -37,7 +37,7 @@ namespace HFlashServer.Controllers
         /// Установка статусов для всех помещений
         /// </summary>
         /// <param name="value">Лист с указанем помещения и статуса</param>
-        /// <returns>Абебка</returns>
+        /// <returns>Возвращает список номеров помещений <b>(int)</b> и их статусы <b>(bool)</b>, которые записаны в виртуальную память для последующего возвращения по запросу <b>GET</b></returns>
         [HttpPost]
         public List<Root> Post([FromBody] List<Root> value)
         {
