@@ -54,6 +54,7 @@ namespace HFlashServer
             {
                 app.UseDeveloperExceptionPage();
             }
+            // ÂÛÍÅÑËÈ ÈÇ IF, ×ÒÎÁÛ ÎÒÎÁÐÀÆÀËÑß SWAGGER
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HFlashServer v1"));
 
