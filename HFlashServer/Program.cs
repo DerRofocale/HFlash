@@ -15,6 +15,8 @@ namespace HFlashServer
         public static void Main(string[] args)
         {
             //CreateHostBuilder(args).Build().Run();
+
+            //ондмърхе яепбепю мю нопедек╗ммнл онпрс
             var host = new WebHostBuilder()
             .UseKestrel()
             .UseContentRoot(Directory.GetCurrentDirectory())
@@ -22,7 +24,6 @@ namespace HFlashServer
             .UseStartup<Startup>()
             .UseUrls("http://0.0.0.0:5000/")
             .Build();
-
             host.Run();
         }
 

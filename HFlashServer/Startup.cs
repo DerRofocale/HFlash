@@ -16,10 +16,7 @@ namespace HFlashServer
 {
     public class Startup
     {
-        //public static string _json;
         public static List<Root> _json;
-
-
 
         public Startup(IConfiguration configuration)
         {
@@ -37,14 +34,10 @@ namespace HFlashServer
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HFlashServer", Version = "v1" });
 
-
+                // днаюбкемхе днйслемрюжхх еякх еярэ
                 try
                 {
-
-                    //Determine base path for the application.
                     var basePath = AppContext.BaseDirectory;
-
-                    //Set the comments path for the swagger json and ui.
                     var xmlPath = Path.Combine(basePath, "HFlashServer.xml");
                     c.IncludeXmlComments(xmlPath);
                 }
